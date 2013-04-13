@@ -104,11 +104,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\AttributeController.cs" />
+    <Compile Include="Controllers\AttributeRootController.cs" />
+    <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\PitchController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Json\jAttribute.cs" />
+    <Compile Include="Models\Json\jAttributeRoot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -127,7 +130,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -136,13 +138,16 @@
     <Content Include="Views\Pitch\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Attribute\Index.cshtml" />
+    <Content Include="Views\AttributeRoot\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Models\Models.csproj">
       <Project>{a7a0021c-fd24-48ab-abd4-3ee6990ce9ff}</Project>
       <Name>Models</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Game\Edit.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
