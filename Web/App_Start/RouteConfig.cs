@@ -1,5 +1,4 @@
 ﻿using System.Web.Mvc;
-using System.Web.Optimization;
 using System.Web.Routing;
 
 namespace pitchtrack
@@ -15,13 +14,6 @@ namespace pitchtrack
 				url: "{controller}/{action}/{id}",
 				defaults: new {controller = "Home", action = "Index", id = UrlParameter.Optional}
 				);
-		}
-	}
-
-	public class BundleConfig
-	{
-		public static void RegisterBundles(BundleCollection bundles)
-		{
 		}
 	}
 }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Http;
+﻿using System.Web.Http;
 
 namespace pitchtrack
 {
@@ -12,8 +9,13 @@ namespace pitchtrack
 			config.Routes.MapHttpRoute(
 				name: "DefaultApi",
 				routeTemplate: "api/{controller}/{id}",
-				defaults: new { id = RouteParameter.Optional }
-			);
+				defaults: new {id = RouteParameter.Optional}
+				);
+
+			config.Routes.MapHttpRoute(
+				name: "GetAttributeRoot",
+				routeTemplate: "attribute/root/{rootIds}",
+				defaults: new {controller = "attribute", action = "GetRoots", rootIds = RouteParameter.Optional});
 		}
 	}
 }

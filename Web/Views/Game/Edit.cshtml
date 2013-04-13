@@ -1,12 +1,22 @@
-﻿@{
+﻿@using System.Web.Optimization
+@{
     ViewBag.Title = "Edit";
 }
-
 <h2>Edit</h2>
+@section scripts
+{
 <script type="text/javascript">
-	$(function() {
-		$.ajax()
-
-
+	$(function () {
+		$.ajax({
+			url: '/attribute/root',
+			dataType: 'json',
+			data: {rootIds : [1]},
+			success : function(data) {
+				for (item in data) {
+					console.log(item);
+				}
+			}
+		});
 	});
 </script>
+}

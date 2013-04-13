@@ -5,7 +5,7 @@ using Pitchtrack.Web.Models.Json;
 
 namespace Pitchtrack.Web.Controllers
 {
-	public class AttributeRootController : ApiController
+	public class AttributeController : ApiController
 	{
 		private static int _idSeed = 1;
 
@@ -93,13 +93,12 @@ namespace Pitchtrack.Web.Controllers
 			return _idSeed++;
 		}
 
-		public IEnumerable<jAttributeRoot> All()
-		{
-			return FakeRepo.Select(x => x.Value).ToArray();
-		}
 
-		public IEnumerable<jAttributeRoot> Get(IEnumerable<int> rootIds)
+		public IEnumerable<jAttributeRoot> GetRoots(IEnumerable<int> rootIds)
 		{
+			if (rootIds.IsNullOrEmpty())
+				return FakeRepo.Select(x => x.Value).ToArray();
+
 			return rootIds.Select(rootId =>
 				                      {
 					                      jAttributeRoot root;
