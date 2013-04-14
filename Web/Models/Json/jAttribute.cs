@@ -2,8 +2,8 @@
 {
 	public class jAttribute
 	{
-		public int AttributeId;
-		public jAttribute[] Attributes;
-		public string Name;
+		public int attributeId;
+		public jAttribute[] attributes;
+		public string name;
 	}
 }

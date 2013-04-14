@@ -2,8 +2,8 @@
 {
 	public class jAttributeRoot
 	{
-		public jAttribute[] Attributes;
-		public int GroupId;
-		public string Name;
+		public jAttribute[] attributes;
+		public int groupId;
+		public string name;
 	}
 }

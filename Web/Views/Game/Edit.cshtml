@@ -1,22 +1,50 @@
-﻿@using System.Web.Optimization
-@{
-    ViewBag.Title = "Edit";
+﻿@{
+	ViewBag.Title = "Edit";
 }
-<h2>Edit</h2>
+<div id="attribute-data-container">
+</div>
+
+<script id="attribute-template" type="text/x-handlebars-template">
+	{{#each roots}}
+		<h2>{{name}} ({{groupId}})</h2>
+		{{#each attributes}}
+			<ul>{{> attribute}}</ul>
+		{{/each}}
+	{{/each}}
+</script>
+
+<script id="attribute-partial" type="text/x-handlebars-template">
+	<li>
+		{{name}} ({{attributeId}})
+		{{#if attributes}}
+			<ul>
+				{{#each attributes}}
+					{{> attribute}}
+				{{/each}}
+			</ul>
+		{{/if}}
+	</li>
+</script>	
+
 @section scripts
 {
-<script type="text/javascript">
-	$(function () {
-		$.ajax({
-			url: '/attribute/root',
-			dataType: 'json',
-			data: {rootIds : [1]},
-			success : function(data) {
-				for (item in data) {
-					console.log(item);
+	<script type="text/javascript">
+		$(function () {
+			var attributeTemplateSource = $("#attribute-template").html();
+			var attributePartialSource = $("#attribute-partial").html();
+			var attributeTemplate = Handlebars.compile(attributeTemplateSource);
+			Handlebars.registerPartial("attribute", attributePartialSource);
+			var $attributeDataContainer = $("#attribute-data-container");
+
+			$.ajax({
+				url: '/attribute/root',
+				type: 'GET',
+				dataType: 'json',
+				success: function (data) {
+					var html = attributeTemplate(data);
+					$attributeDataContainer.html(html);
 				}
-			}
+			});
 		});
-	});
-</script>
+	</script>
 }

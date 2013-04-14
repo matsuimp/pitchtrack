@@ -10,4 +10,13 @@ namespace Pitchtrack.Web
 			return null == items || !items.Any();
 		}
 	}
+
+	public static class DictionaryExtensions
+	{
+		public static TValue GetOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> lookup, TKey key, TValue defaultValue = default(TValue))
+		{
+			TValue value;
+			return lookup.TryGetValue(key, out value) ? value : defaultValue;
+		}
+	}
 }
