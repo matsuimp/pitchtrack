@@ -6,7 +6,7 @@
 
 <script id="attribute-template" type="text/x-handlebars-template">
 	{{#each roots}}
-		<h2>{{name}} ({{groupId}})</h2>
+		<h2>{{name}}</h2>
 		{{#each attributes}}
 			<ul>{{> attribute}}</ul>
 		{{/each}}
@@ -15,7 +15,7 @@
 
 <script id="attribute-partial" type="text/x-handlebars-template">
 	<li>
-		{{name}} ({{attributeId}})
+		{{name}}
 		{{#if attributes}}
 			<ul>
 				{{#each attributes}}
