@@ -131,6 +131,12 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="Content\Styles\sass\screen.css">
+      <DependentUpon>screen.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Styles\sass\Scss1.css">
+      <DependentUpon>helloworld.scss</DependentUpon>
+    </Content>
     <Content Include="Global.asax" />
     <None Include="Content\Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Content\Scripts\handlebars.js" />
@@ -142,15 +148,42 @@
     </Content>
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Content\Scripts\jquery-1.9.1.min.map" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\_viewstart.cshtml" />
     <Content Include="Content\Scripts\PitchTrack.UriFormat.js" />
+    <Content Include="Content\Styles\sass\helloworld.scss">
+      <Compile>False</Compile>
+      <Minify>True</Minify>
+      <CompileStyle>Nested</CompileStyle>
+      <DebugInfo>False</DebugInfo>
+    </Content>
+    <Content Include="Content\Styles\sass\ie.scss">
+      <Compile>False</Compile>
+      <Minify>True</Minify>
+      <CompileStyle>Nested</CompileStyle>
+      <DebugInfo>False</DebugInfo>
+    </Content>
+    <Content Include="Content\Styles\sass\print.scss">
+      <Compile>False</Compile>
+      <Minify>True</Minify>
+      <CompileStyle>Nested</CompileStyle>
+      <DebugInfo>False</DebugInfo>
+    </Content>
+    <Content Include="Content\Styles\sass\screen.scss">
+      <Compile>False</Compile>
+      <Minify>True</Minify>
+      <CompileStyle>Nested</CompileStyle>
+      <DebugInfo>False</DebugInfo>
+    </Content>
+    <Content Include="Content\Styles\config.rb" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Styles\stylesheets\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
