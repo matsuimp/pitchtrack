@@ -1,21 +1,29 @@
 ﻿@{
 	ViewBag.Title = "Edit";
 }
+<svg xmlns = "http://www.w3.org/2000/svg" width="22%" height="75%" id="svg-form" style="background-color: green">
+	<rect id="pitchlocation-ball" x="50" y="25" width="300" height="400" style="fill:blue;stroke:grey;stroke-width:5;fill-opacity:0.6; stroke-opacity:0.9"/>
+	<rect id="pitchlocation-strike" x="100" y ="75" width="200" height="300" style="fill:red;stroke:grey;stroke-width:10;fill-opacity:0.9;stroke-opacity:0.5"/>
+</svg>
+
 <div id="attribute-data-container">
-</div>
+</div>	
+
 
 <script id="attribute-template" type="text/x-handlebars-template">
 	{{#each roots}}
-		<h2>{{name}}</h2>
-		{{#each attributes}}
-			<ul>{{> attribute}}</ul>
-		{{/each}}
+		<ul>
+			<li class="root-attribute">{{name}}</li>
+			{{#each attributes}}
+				<ul>{{> attribute}}</ul>
+			{{/each}}
+		</ul>
 	{{/each}}
 </script>
 
 <script id="attribute-partial" type="text/x-handlebars-template">
 	<li>
-		{{name}}
+		<input id="Attribute{{attributeId}}" type="checkbox"></input>{{name}}
 		{{#if attributes}}
 			<ul>
 				{{#each attributes}}
@@ -29,6 +37,14 @@
 @section scripts
 {
 	<script type="text/javascript">
+		var $strikeZone = $("#pitchlocation-ball, #pitchlocation-strike");
+		var $svgForm = $("#svg-form");
+		
+		$strikeZone.mousedown(function (e) {
+			$svgForm.appen
+			console.log(e.pageX + ", " +e.pageY);
+		});
+
 		$(function () {
 			var attributeTemplateSource = $("#attribute-template").html();
 			var attributePartialSource = $("#attribute-partial").html();
