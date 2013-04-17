@@ -87,7 +87,7 @@
 					
 
 					$(".attribute-input").mouseover(function (e) {
-						if (!isMouseDown)
+						if (mouseDownCount <= 0)
 							return;
 
 						var $this = $(this);
