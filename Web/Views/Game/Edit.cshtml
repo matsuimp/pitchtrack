@@ -1,8 +1,8 @@
 ﻿@{
 	ViewBag.Title = "Edit";
 }
-<svg xmlns = "http://www.w3.org/2000/svg" width="22%" height="75%" id="svg-form" style="background-color: green">
-	<svg id="strike-zone">
+<div class="unselectable">
+	<svg xmlns = "http://www.w3.org/2000/svg" width="300" height="400" id="strike-zone">
 		<rect id="ball" x="0" y="0" rx="10" ry="10" width="300" height="400" style="fill:blue;stroke:grey;stroke-width:5;fill-opacity:0.6; stroke-opacity:0.9"/>
 		<rect id="strike" x="50" y ="50" rx="10" ry="10" width="200" height="300" style="fill:red;stroke:grey;stroke-width:10;fill-opacity:0.9;stroke-opacity:0.5" />
 		
@@ -11,44 +11,44 @@
 
 		<line x1="50" x2="250" y1="150" y2="150" style="stroke:grey; stroke-width:3" />
 		<line x1="50" x2="250" y1="250" y2="250" style="stroke:grey; stroke-width:3" />
-		
-		@*<circle cx="238" cy="339" r="15" fill="white"></circle>*@
 	</svg>
-</svg>
 
-<div id="attribute-data-container">
-</div>	
+	<div id="attribute-data-container">
+	</div>	
+</div>
 
 
 <script id="attribute-template" type="text/x-handlebars-template">
-	{{#each roots}}
-		<svg xmlns="http://www.w3.org/2000/svg" class="attribute-root">
-			{{#each attributes}}
-				<ul>{{> attribute}}</ul>
-			{{/each}}
-		</svg>
-	{{/each}}
-</script>
-
-<script id="attribute-partial" type="text/x-handlebars-template">
-	<li>
-		<input id="Attribute{{attributeId}}" type="checkbox"></input>{{name}}
-		{{#if attributes}}
-			<ul>
+	<ul>
+		{{#each roots}}
+			<li>
 				{{#each attributes}}
 					{{> attribute}}
 				{{/each}}
-			</ul>
-		{{/if}}
-	</li>
+			</li>
+		{{/each}}
+	</ul>
+</script>
+
+<script id="attribute-partial" type="text/x-handlebars-template">
+	<input type="button" value="{{name}}" attribute-id="{{attributeId}}" class="attribute-input">
+	{{#if attributes}}
+		<ul>
+			{{#each attributes}}
+				{{> attribute}}
+			{{/each}}
+		</ul>
+	{{/if}}
+	</input>
 </script>	
 
 @section scripts
 {
 	<script type="text/javascript">
-
 		var $strikeZone = $("#strike-zone");
 		var $svgForm = $("#svg-form");
+		var mouseDownCount = 0;
+		var $document = $(this);
 		
 		$strikeZone.mousedown(function (e) {
 			var baseball = $strikeZone.get(0).getElementById("baseball");
@@ -62,25 +62,50 @@
 				baseball.setAttribute("r", 15);
 				baseball.setAttribute("fill", "white");
 				baseball.setAttribute("id", "baseball");
+				baseball.setAttribute("stroke", "black");
+				baseball.setAttribute("stroke-width", "2");
 				$strikeZone.get(0).appendChild(baseball);
 			}
 		});
 
+
+
 		$(function () {
-			//var attributeTemplateSource = $("#attribute-template").html();
-			//var attributePartialSource = $("#attribute-partial").html();
-			//var attributeTemplate = Handlebars.compile(attributeTemplateSource);
-			//Handlebars.registerPartial("attribute", attributePartialSource);
-			//var $attributeDataContainer = $("#attribute-data-container");
+			var attributeTemplateSource = $("#attribute-template").html();
+			var attributePartialSource = $("#attribute-partial").html();
+			var attributeTemplate = Handlebars.compile(attributeTemplateSource);
+			Handlebars.registerPartial("attribute", attributePartialSource);
+			var $attributeDataContainer = $("#attribute-data-container");
 
 			$.ajax({
 				url: '/attribute/root',
 				type: 'GET',
 				dataType: 'json',
 				success: function (data) {
-					//var html = attributeTemplate(data);
-					//$attributeDataContainer.html(html);
+					var html = attributeTemplate(data);
+					$attributeDataContainer.html(html);
+					
+
+					$(".attribute-input").mouseover(function (e) {
+						if (!isMouseDown)
+							return;
+
+						var $this = $(this);
+						var name = $this.attr("value");
+						var id = $this.attr("attribute-id");
+
+						console.log("moused over: " + name + " (" + id + ")");
+					});
 				}
+			});
+
+			
+			$document.mousedown(function () {
+				mouseDownCount++;
+			});
+			
+			$(this).mouseup(function () {
+				mouseDownCount--;
 			});
 		});
 	</script>
