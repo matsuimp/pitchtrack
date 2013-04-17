@@ -2,8 +2,18 @@
 	ViewBag.Title = "Edit";
 }
 <svg xmlns = "http://www.w3.org/2000/svg" width="22%" height="75%" id="svg-form" style="background-color: green">
-	<rect id="pitchlocation-ball" x="50" y="25" width="300" height="400" style="fill:blue;stroke:grey;stroke-width:5;fill-opacity:0.6; stroke-opacity:0.9"/>
-	<rect id="pitchlocation-strike" x="100" y ="75" width="200" height="300" style="fill:red;stroke:grey;stroke-width:10;fill-opacity:0.9;stroke-opacity:0.5"/>
+	<svg id="strike-zone">
+		<rect id="ball" x="0" y="0" rx="10" ry="10" width="300" height="400" style="fill:blue;stroke:grey;stroke-width:5;fill-opacity:0.6; stroke-opacity:0.9"/>
+		<rect id="strike" x="50" y ="50" rx="10" ry="10" width="200" height="300" style="fill:red;stroke:grey;stroke-width:10;fill-opacity:0.9;stroke-opacity:0.5" />
+		
+		<line x1="116" x2="116" y1="50" y2="350" style="stroke:grey; stroke-width:3" />
+		<line x1="182" x2="182" y1="50" y2="350" style="stroke:grey; stroke-width:3" />
+
+		<line x1="50" x2="250" y1="150" y2="150" style="stroke:grey; stroke-width:3" />
+		<line x1="50" x2="250" y1="250" y2="250" style="stroke:grey; stroke-width:3" />
+		
+		@*<circle cx="238" cy="339" r="15" fill="white"></circle>*@
+	</svg>
 </svg>
 
 <div id="attribute-data-container">
@@ -12,12 +22,11 @@
 
 <script id="attribute-template" type="text/x-handlebars-template">
 	{{#each roots}}
-		<ul>
-			<li class="root-attribute">{{name}}</li>
+		<svg xmlns="http://www.w3.org/2000/svg" class="attribute-root">
 			{{#each attributes}}
 				<ul>{{> attribute}}</ul>
 			{{/each}}
-		</ul>
+		</svg>
 	{{/each}}
 </script>
 
@@ -37,28 +46,40 @@
 @section scripts
 {
 	<script type="text/javascript">
-		var $strikeZone = $("#pitchlocation-ball, #pitchlocation-strike");
+
+		var $strikeZone = $("#strike-zone");
 		var $svgForm = $("#svg-form");
 		
 		$strikeZone.mousedown(function (e) {
-			$svgForm.appen
-			console.log(e.pageX + ", " +e.pageY);
+			var baseball = $strikeZone.get(0).getElementById("baseball");
+			if (baseball) {
+				baseball.setAttribute("cx", e.pageX);
+				baseball.setAttribute("cy", e.pageY);
+			} else {
+				baseball = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+				baseball.setAttribute("cx", e.pageX);
+				baseball.setAttribute("cy", e.pageY);
+				baseball.setAttribute("r", 15);
+				baseball.setAttribute("fill", "white");
+				baseball.setAttribute("id", "baseball");
+				$strikeZone.get(0).appendChild(baseball);
+			}
 		});
 
 		$(function () {
-			var attributeTemplateSource = $("#attribute-template").html();
-			var attributePartialSource = $("#attribute-partial").html();
-			var attributeTemplate = Handlebars.compile(attributeTemplateSource);
-			Handlebars.registerPartial("attribute", attributePartialSource);
-			var $attributeDataContainer = $("#attribute-data-container");
+			//var attributeTemplateSource = $("#attribute-template").html();
+			//var attributePartialSource = $("#attribute-partial").html();
+			//var attributeTemplate = Handlebars.compile(attributeTemplateSource);
+			//Handlebars.registerPartial("attribute", attributePartialSource);
+			//var $attributeDataContainer = $("#attribute-data-container");
 
 			$.ajax({
 				url: '/attribute/root',
 				type: 'GET',
 				dataType: 'json',
 				success: function (data) {
-					var html = attributeTemplate(data);
-					$attributeDataContainer.html(html);
+					//var html = attributeTemplate(data);
+					//$attributeDataContainer.html(html);
 				}
 			});
 		});
