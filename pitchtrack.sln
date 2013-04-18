@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{B76C0D48-CC4E-4C33-8EDD-C716F9483139}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pitchtrack.Web", "Web\Pitchtrack.Web.csproj", "{B76C0D48-CC4E-4C33-8EDD-C716F9483139}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Tests", "Web.Tests\Web.Tests.csproj", "{95458BAC-8168-4C64-87C0-931D97F5CC58}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pitchtrack.Web.Tests", "Web.Tests\Pitchtrack.Web.Tests.csproj", "{95458BAC-8168-4C64-87C0-931D97F5CC58}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{A7A0021C-FD24-48AB-ABD4-3EE6990CE9FF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pitchtrack.Models", "Models\Pitchtrack.Models.csproj", "{A7A0021C-FD24-48AB-ABD4-3EE6990CE9FF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{E156A34F-9381-499E-AFC7-1D8AAB970C42}"
 	ProjectSection(SolutionItems) = preProject
