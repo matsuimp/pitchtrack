@@ -62,21 +62,6 @@ namespace Pitchtrack.Web.Controllers
 						{
 							groupId = NextId(), name = "MPH", attributes = new[]
 								                                               {
-									                                               new jAttribute {attributeId = NextId(), name = "75"},
-									                                               new jAttribute {attributeId = NextId(), name = "76"},
-									                                               new jAttribute {attributeId = NextId(), name = "77"},
-									                                               new jAttribute {attributeId = NextId(), name = "78"},
-									                                               new jAttribute {attributeId = NextId(), name = "79"},
-									                                               new jAttribute {attributeId = NextId(), name = "80"},
-									                                               new jAttribute {attributeId = NextId(), name = "81"},
-									                                               new jAttribute {attributeId = NextId(), name = "82"},
-									                                               new jAttribute {attributeId = NextId(), name = "83"},
-									                                               new jAttribute {attributeId = NextId(), name = "84"},
-									                                               new jAttribute {attributeId = NextId(), name = "85"},
-									                                               new jAttribute {attributeId = NextId(), name = "86"},
-									                                               new jAttribute {attributeId = NextId(), name = "87"},
-									                                               new jAttribute {attributeId = NextId(), name = "88"},
-									                                               new jAttribute {attributeId = NextId(), name = "89"},
 									                                               new jAttribute {attributeId = NextId(), name = "90"},
 									                                               new jAttribute {attributeId = NextId(), name = "91"},
 									                                               new jAttribute {attributeId = NextId(), name = "92"},
@@ -88,9 +73,6 @@ namespace Pitchtrack.Web.Controllers
 									                                               new jAttribute {attributeId = NextId(), name = "98"},
 									                                               new jAttribute {attributeId = NextId(), name = "99"},
 									                                               new jAttribute {attributeId = NextId(), name = "100"},
-									                                               new jAttribute {attributeId = NextId(), name = "101"},
-									                                               new jAttribute {attributeId = NextId(), name = "102"},
-									                                               new jAttribute {attributeId = NextId(), name = "103"},
 								                                               }
 						},
 				}.ToDictionary(group => group.groupId, group => group);

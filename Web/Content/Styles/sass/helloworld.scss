@@ -4,13 +4,40 @@ h2 {
 
 .unselectable {
 	-moz-user-select: -moz-none;
-   -khtml-user-select: none;
-   -webkit-user-select: none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
 
    /*
      Introduced in IE 10.
      See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/
    */
-   -ms-user-select: none;
-   user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.attribute-input {
+	align-items:center;
+	background-color:#073c10;
+	height:30px;
+	width:100px;
+	&.parent {
+		color:#fff;
+	}
+
+	&.child {
+		color:#ffd800;
+	}
+
+	&.selected {
+		background-color:#2d53e9
+	}
+}
+
+ul {
+	line-height: 55px;
+	list-style:none;
+}
+
+.hidden {
+	display:none;
 }

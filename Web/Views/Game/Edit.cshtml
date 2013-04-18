@@ -3,14 +3,14 @@
 }
 <div class="unselectable">
 	<svg xmlns = "http://www.w3.org/2000/svg" width="300" height="400" id="strike-zone">
-		<rect id="ball" x="0" y="0" rx="10" ry="10" width="300" height="400" style="fill:blue;stroke:grey;stroke-width:5;fill-opacity:0.6; stroke-opacity:0.9"/>
-		<rect id="strike" x="50" y ="50" rx="10" ry="10" width="200" height="300" style="fill:red;stroke:grey;stroke-width:10;fill-opacity:0.9;stroke-opacity:0.5" />
+		<rect id="ball" x="0" y="0" rx="10" ry="10" width="300" height="400" style="fill: blue; stroke: grey; stroke-width: 5; fill-opacity: 0.6; stroke-opacity: 0.9"/>
+		<rect id="strike" x="50" y ="50" rx="10" ry="10" width="200" height="300" style="fill: red; stroke: grey; stroke-width: 10; fill-opacity: 0.9; stroke-opacity: 0.5" />
 		
-		<line x1="116" x2="116" y1="50" y2="350" style="stroke:grey; stroke-width:3" />
-		<line x1="182" x2="182" y1="50" y2="350" style="stroke:grey; stroke-width:3" />
+		<line x1="116" x2="116" y1="50" y2="350" style="stroke: grey; stroke-width: 3" />
+		<line x1="182" x2="182" y1="50" y2="350" style="stroke: grey; stroke-width: 3" />
 
-		<line x1="50" x2="250" y1="150" y2="150" style="stroke:grey; stroke-width:3" />
-		<line x1="50" x2="250" y1="250" y2="250" style="stroke:grey; stroke-width:3" />
+		<line x1="50" x2="250" y1="150" y2="150" style="stroke: grey; stroke-width: 3" />
+		<line x1="50" x2="250" y1="250" y2="250" style="stroke: grey; stroke-width: 3" />
 	</svg>
 
 	<div id="attribute-data-container">
@@ -21,25 +21,29 @@
 <script id="attribute-template" type="text/x-handlebars-template">
 	<ul>
 		{{#each roots}}
-			<li>
+			<li >
+				{{#each attributes}}
+					<input type="button" value="{{name}}" attribute-id="{{attributeId}}" class="attribute-input parent"/>
+				{{/each}}
 				{{#each attributes}}
 					{{> attribute}}
 				{{/each}}
 			</li>
-		{{/each}}
+		{{/each}}	
 	</ul>
 </script>
 
 <script id="attribute-partial" type="text/x-handlebars-template">
-	<input type="button" value="{{name}}" attribute-id="{{attributeId}}" class="attribute-input">
 	{{#if attributes}}
-		<ul>
+		<li parent-attribute-id="{{attributeId}}" class="hidden">
 			{{#each attributes}}
-				{{> attribute}}
+				<input type="button" value="{{name}}" attribute-id="{{attributeId}}" class="attribute-input child"/>
 			{{/each}}
-		</ul>
+			{{#each attributes}}
+				{{> attribute}}			
+			{{/each}}
+		</li>
 	{{/if}}
-	</input>
 </script>	
 
 @section scripts
@@ -49,8 +53,8 @@
 		var $svgForm = $("#svg-form");
 		var mouseDownCount = 0;
 		var $document = $(this);
-		
-		$strikeZone.mousedown(function (e) {
+
+		$strikeZone.mousedown(function(e) {
 			var baseball = $strikeZone.get(0).getElementById("baseball");
 			if (baseball) {
 				baseball.setAttribute("cx", e.pageX);
@@ -69,8 +73,7 @@
 		});
 
 
-
-		$(function () {
+		$(function() {
 			var attributeTemplateSource = $("#attribute-template").html();
 			var attributePartialSource = $("#attribute-partial").html();
 			var attributeTemplate = Handlebars.compile(attributeTemplateSource);
@@ -81,30 +84,41 @@
 				url: '/attribute/root',
 				type: 'GET',
 				dataType: 'json',
-				success: function (data) {
+				success: function(data) {
 					var html = attributeTemplate(data);
 					$attributeDataContainer.html(html);
-					
 
-					$(".attribute-input").mouseover(function (e) {
+
+					var $attributeInput = $(".attribute-input");
+					$attributeInput.mouseover(function (e) {
 						if (mouseDownCount <= 0)
 							return;
 
-						var $this = $(this);
-						var name = $this.attr("value");
-						var id = $this.attr("attribute-id");
+						selectAttribute(e, this);
+					});
 
-						console.log("moused over: " + name + " (" + id + ")");
+					$attributeInput.click(function(evt) {
+						selectAttribute(evt, this);
 					});
 				}
 			});
-
 			
-			$document.mousedown(function () {
+			function selectAttribute(evt, item) {
+				var $item = $(item);
+				var name = $item.attr("value");
+				var id = $item.attr("attribute-id");
+
+				$item.addClass("selected");
+				$("li[parent-attribute-id=" + id + "]").toggle(true);
+				console.log("moused over: " + name + " (" + id + ")");
+			}
+
+
+			$document.mousedown(function() {
 				mouseDownCount++;
 			});
-			
-			$(this).mouseup(function () {
+
+			$(this).mouseup(function() {
 				mouseDownCount--;
 			});
 		});
