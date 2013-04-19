@@ -21,7 +21,7 @@
 <script id="attribute-template" type="text/x-handlebars-template">
 	<ul>
 		{{#each roots}}
-			<li >
+			<li attribute-id="{{attributeId}}"\>
 				{{#each attributes}}
 					<input type="button" value="{{name}}" attribute-id="{{attributeId}}" class="attribute-input parent"/>
 				{{/each}}
@@ -35,7 +35,7 @@
 
 <script id="attribute-partial" type="text/x-handlebars-template">
 	{{#if attributes}}
-		<li parent-attribute-id="{{attributeId}}" class="hidden">
+		<li attribute-id="{{attributeId}}" class="hidden">
 			{{#each attributes}}
 				<input type="button" value="{{name}}" attribute-id="{{attributeId}}" class="attribute-input child"/>
 			{{/each}}
@@ -46,6 +46,8 @@
 	{{/if}}
 </script>	
 
+<div><p id="summary"></p></div>
+
 @section scripts
 {
 	<script type="text/javascript">
@@ -53,6 +55,7 @@
 		var $svgForm = $("#svg-form");
 		var mouseDownCount = 0;
 		var $document = $(this);
+		var $summary = $("#summary");
 
 		$strikeZone.mousedown(function(e) {
 			var baseball = $strikeZone.get(0).getElementById("baseball");
@@ -107,10 +110,27 @@
 				var $item = $(item);
 				var name = $item.attr("value");
 				var id = $item.attr("attribute-id");
-
+				var $siblings = $item.siblings();
+				
+				
+				$siblings.removeClass("selected");
 				$item.addClass("selected");
-				$("li[parent-attribute-id=" + id + "]").toggle(true);
+				$("li[attribute-id=" + id + "]").toggle(true);
+				$siblings.each(function (index, elem) {
+					$("li[attribute-id=" + elem.getAttribute("attribute-id") + "]").toggle(false);
+				});
+
+
+				var summary = $(".selected").map(function(index, elem) {
+					return elem.getAttribute("value");
+				}).get().join(", ");
+
+				$summary.html(summary);
+
+				
+				
 				console.log("moused over: " + name + " (" + id + ")");
+				
 			}
 
 
@@ -118,7 +138,7 @@
 				mouseDownCount++;
 			});
 
-			$(this).mouseup(function() {
+			$document.mouseup(function () {
 				mouseDownCount--;
 			});
 		});
