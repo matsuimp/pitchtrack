@@ -117,6 +117,7 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="Controllers\AttributeController.cs" />
+    <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\GameController.cs" />
     <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="Global.asax.cs">
