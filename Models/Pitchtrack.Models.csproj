@@ -39,11 +39,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Authentication\Account.cs" />
+    <Compile Include="Authentication\Email.cs" />
     <Compile Include="Database\Pitch.cs" />
     <Compile Include="Database\PitchAttribute.cs" />
     <Compile Include="Database\Player.cs" />
     <Compile Include="Definitions\Position.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StringExtensions.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
